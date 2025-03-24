@@ -1,0 +1,96 @@
+<head>
+    <title>MENtal Health</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family:'Times New Roman', Times, serif;
+            background-color: #add8e6;
+            font-size: 225%;
+            line-height: 30px
+        }
+        
+        h1 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        
+        .styled-link {
+            color: #d8e38f;
+            border: 3px;
+            size: 300%
+        }
+        
+        button {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #53b8e7;
+        }
+        
+        .help-input {
+            size: 300%
+        }
+        
+            </style>
+        <script>
+            function CheckServer2() {
+                fetch('/calorie', { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '/calorie';
+                        } else {
+                            window.location.href = 'calorie.html';
+                        }
+                    })
+                    .catch(() => {
+                        window.location.href = 'calorie.html';
+                    });
+            }
+            function CheckServer3() {
+                fetch('/goal', { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '/goal';
+                        } else {
+                            window.location.href = 'goal.html';
+                        }
+                    })
+                    .catch(() => {
+                        window.location.href = 'goal.html';
+                    });
+            }
+        </script>
+</head>
+<body>
+    <br>
+    <center><h1>MENtal Health</h1><center>
+    <center><h3>Bridging the gap between mental and physical health for men.</h3>
+    <h3>Sigmas Not Stigmas</h3>
+    </center>
+    <a>
+    <button onclick = "window.location.href='http://127.0.0.1:5001'">Food Log</button>
+    <button onclick = "window.location.href='http://127.0.0.1:5000'">Excercise Log</button>
+    <button onclick = "window.location.href='http://127.0.0.1:5002'">Sleep Log</button>
+    <button onclick = "CheckServer2()">Calorie Counter</button>
+    <button onclick = "CheckServer3()">Goal Tracker</button>
+
+    </a>
+
+    <br>
+    <br>
+
+    <a>
+        <img src = "https://fr.canadabeef.ca/wp-content/uploads/sites/2/2020/07/Big-Burgers_1.jpg" width = "50" height = "50"
+        style="position: absolute; left: 580px; top: 420px;">
+        <img src = "https://th.bing.com/th/id/OIP.0lsO86vI1kXT2u-x_r4pWAHaHa?rs=1&pid=ImgDetMain" width = "50" height = "50"
+        style="position: absolute; left: 645px; top: 420px;">
+        <img src = "https://exetersportspine.com/wp-content/uploads/2022/10/sleeping.jpg" width = "50" height = "50"
+        style="position: absolute; left: 720px; top: 420px;">
+        <img src = "https://th.bing.com/th/id/OIP.nrWLhxnLKzx7WWtjnugNhAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.7&pid=1.7" width = "50" height = "50"
+        style="position: absolute; left: 775px; top: 420px;">
+        </a>
+
+        <img src = "https://www.svgrepo.com/show/451516/checkbox-checked.svg" width = "50" height = "50"
+        style="position: absolute; left: 840px; top: 420px;">
+
+
+    <img src= "https://as1.ftcdn.net/jpg/11/82/06/04/1000_F_1182060481_FuSrtb8SAmaJplsTK49sNZFK6mj2xf5X.webp" width="450" length="250" alt="Mantle"
+    style="position: absolute; left: 510px; top: 430px;">

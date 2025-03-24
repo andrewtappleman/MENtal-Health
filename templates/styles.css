@@ -1,0 +1,38 @@
+body {
+    font-family:'Times New Roman', Times, serif;
+    background-color: #add8e6;
+    font-size: 225%;
+    line-height: 30px
+}
+ 
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.styled-link {
+    color: #d8e38f;
+    border: 3px;
+    size: 300%
+}
+
+button {
+    padding: 20px 40px;
+    font-size: 24px;
+    background-color: #53b8e7;
+}
+
+.help-input {
+    size: 300%
+}
+
+meter.over-limit::-webkit-meter-optimum-value {
+    background-color: red; /* Change to red when over limit */
+}
+
+meter.over-limit::-moz-meter-bar {
+    background-color: red; /* Change to red when over limit */
+}
+
+meter.over-limit::-ms-fill {
+    background-color: red; /* Change to red when over limit */
+}

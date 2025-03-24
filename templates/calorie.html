@@ -1,0 +1,153 @@
+<head>
+    <title>Calorie Counter</title>
+
+    <script>
+        function CheckServer2() {
+            fetch('/main', { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/main';
+                    } else {
+                        window.location.href = 'main.html';
+                    }
+                })
+                .catch(() => {
+                    window.location.href = 'main.html';
+                });
+        }
+    </script>
+
+
+
+    <style>
+        body {
+            font-family:'Times New Roman', Times, serif;
+            background-color: #add8e6;
+            font-size: 225%;
+            line-height: 30px
+        }
+        
+        h1 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        
+        .styled-link {
+            color: #d8e38f;
+            border: 3px;
+            size: 300%
+        }
+        
+        button {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #53b8e7;
+        }
+        
+        .help-input {
+            size: 300%
+        }
+        meter.over-limit::-webkit-meter-optimum-value {
+    background-color: red; /* Change to red when over limit */
+}
+
+meter.over-limit::-moz-meter-bar {
+    background-color: red; /* Change to red when over limit */
+}
+
+meter.over-limit::-ms-fill {
+    background-color: red; /* Change to red when over limit */
+}
+            </style>
+</head>
+<body>
+<br>
+    <center><h1>Calorie Counter</h1>
+        <label for="yInput">Enter your calorie target for the day:</label>
+<input type="text" id="yInput" placeholder="Enter a number">
+<br>
+
+<p id = "TC"></p>
+<script src="script.js"></script>
+
+    
+    <h3>Here you will put how many calories you eat in a day.</h3>
+
+
+    <h4><p id="text">You have eaten no calories today.</p></h4>
+        
+
+    <button onclick="changeText1()">1 Calorie</button>
+
+    <button onclick="changeText10()">10 Calories</button>
+
+    <button onclick="changeText100()">100 Calories</button>
+    <br>
+    <br>
+   
+    <meter id="MC" min="0" low = "0" high = y max = y value = "0" style="width:500px"></meter>
+    <h4 id="limit-message"></h4> 
+    <script>
+   let x = 0;
+   let y = 0;
+   const yInput = document.getElementById("yInput");
+const TCDisplay = document.getElementById("TC");
+const meter = document.getElementById("MC");
+meter.max = 0;
+meter.min = 0;
+
+TCDisplay.textContent = "Calorie Target: 0";
+function updateDisplay() {
+    if (x > y) {
+        document.getElementById("limit-message").innerText = "You have exceeded your calorie limit for today.";
+        document.getElementById("MC").classList.add("over-limit");
+    } else {
+        document.getElementById("limit-message").innerText = "";
+    }
+}
+yInput.addEventListener("input", function() {
+    y = parseInt(yInput.value) || 0; // Parse input to integer, default to 0
+    meter.max = y;
+    meter.high = y;
+    TCDisplay.textContent = "Calorie Target: " + y;
+    updateDisplay();
+});
+    
+   
+   
+        function changeText1() {
+            x += 1
+            document.getElementById("text").innerText = "You have eaten "+x+" calories today.";
+            document.getElementById("MC").value = x;
+            updateDisplay();
+        }
+   
+    
+   
+        // JavaScript function to change the text
+        function changeText10() {
+            x += 10
+            document.getElementById("text").innerText = "You have eaten "+x+" calories today.";
+            document.getElementById("MC").value = x; 
+            updateDisplay();
+        }
+  
+    
+  
+        function changeText100() {
+            x += 100
+            document.getElementById("text").innerText = "You have eaten "+x+" calories today.";
+            document.getElementById("MC").value = x; 
+            updateDisplay();
+        }
+        
+
+       
+    </script>
+
+    </center>
+
+    <button onclick = "CheckServer2()">Return To Home</button>
+
+
+
+    </body>

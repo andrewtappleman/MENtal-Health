@@ -1,0 +1,145 @@
+<html>
+<head>
+    <style>
+body {
+    font-family:'Times New Roman', Times, serif;
+    background-color: #add8e6;
+    font-size: 225%;
+    line-height: 30px
+}
+
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.styled-link {
+    color: #d8e38f;
+    border: 3px;
+    size: 300%
+}
+
+button {
+    padding: 20px 40px;
+    font-size: 24px;
+    background-color: #53b8e7;
+}
+
+.help-input {
+    size: 300%
+}
+
+    </style>
+
+
+
+
+    <title>Sleep Log</title>
+
+    <script>
+        async function addInfo() {
+            let name = document.getElementById("name").value;
+            let date = document.getElementById("date").value;
+            let sleep = document.getElementById("sleep").value;
+            let after = document.getElementById("after").value;
+
+            if(after > 10){
+            after = 10
+            }
+            
+
+            let response = await fetch('/add_info', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ date: date, sleep: sleep, after: after, name: name })
+            });
+
+        }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <br>
+    <center><h1>Sleep Log</h1>
+    
+    <h3>Log your sleep to notice a trend.</h3>
+
+    <canvas id="sleepChart" style="width:100%;max-width:600px"></canvas>
+    <script>
+
+    async function fetchData() {
+        let name = document.getElementById("name").value;
+        if (name == '') {
+            document.getElementById("displaySleep1").innerText = 'There is no name provided!';
+        } else {
+            let response = await fetch('/fetch_data', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: name })
+            });
+
+            response.json().then(data => {
+                let sleepTime = data.sleepData;
+
+                window.SleepY = [];
+                window.SleepX = [];
+                sleepTime.forEach(sleep => {
+                    window.SleepY.push(`${sleep.after}`);
+                    window.SleepX.push(`${sleep.sleep}`);
+                });
+                console.log("HElLo");
+                console.log(window.SleepY, window.SleepX);
+
+                if (window.preChart) {
+                    window.preChart.destroy();
+                }
+
+                window.preChart = new Chart("sleepChart", {
+                    type: "line",
+                    data: {
+                        labels: window.SleepX,
+                        datasets: [{
+                            data: window.SleepY,
+                            borderColor: "black",
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        legend: { display: false }
+                    }
+                });
+            }).catch(error => console.error('Error:', error));
+        }
+    }
+</script>
+    <a>
+    <form>
+        <label for="name">Enter Name Correctly:</label><br>
+        <input class= "help-input" type="text" id="name" name="name"><br>
+
+        <label for="date">Date:</label><br>
+        <input class= "help-input" type="date" id="date" name="date"><br>
+
+        <label for="sleep">Time In Hours(Ex. "9", "9.3"):</label><br>
+        <input class= "help-input" type="number" id="sleep" name="sleep"><br>
+
+        <label for="after">How did you feel after? (0-5):</label><br>
+        <input class= "help-input" type="number" id="after" name="after"><br>
+        <p>1😡2😞3😐4🙂5😇</p>
+        <button onclick = "addInfo()">Submit</button>
+    </form>
+    </a>
+
+    <br>
+
+    <button onclick = "fetchData()">Recall Sleep</button>
+    <p id = "displaySleep1">Make sure your name is written in the "Name" box above.</p>
+
+    </center>
+    <a href = '/main'>
+        <button>Return To Home</button>
+    </a>
+</body>
+
+</html>

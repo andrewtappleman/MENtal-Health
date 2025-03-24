@@ -1,0 +1,138 @@
+<html>
+<head>
+    <style>
+body {
+    font-family:'Times New Roman', Times, serif;
+    background-color: #add8e6;
+    font-size: 225%;
+    line-height: 30px
+}
+
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.styled-link {
+    color: #d8e38f;
+    border: 3px;
+    size: 300%
+}
+
+button {
+    padding: 20px 40px;
+    font-size: 24px;
+    background-color: #53b8e7;
+}
+
+.help-input {
+    size: 300%
+}
+
+    </style>
+
+
+
+
+    <title>Food Log</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        async function addInfo() {
+            let name = document.getElementById("name").value;
+            let food = document.getElementById("food").value;
+            let after = document.getElementById("after").value;
+
+            if(after > 10){
+            after = 10
+            }
+
+            let response = await fetch('/add_info', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ food: food, after: after, name: name })
+            });
+
+        }
+    </script>
+
+    <script>
+    async function fetchData() {
+        
+        let name = document.getElementById("name").value;
+        if (name == ''){
+                document.getElementById("displayExer1").innerText = 'There is no name provided!';
+            }    
+            else{
+        let response = await fetch('/fetch_data', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: name })
+        });
+        
+        response.json().then(data => {
+        let foodAfter7 = data.food7U;
+        let food4To7 = data.food47;
+        let foodLessThan4 = data.foodU4;
+        
+        console.log(foodAfter7, food4To7, foodLessThan4);
+        
+        let U7 = "";
+        foodAfter7.forEach(food => {
+        U7 += `Type: ${food.food}\n`;
+        });
+        console.log('U7: '+ U7)
+        document.getElementById("displayExer1").innerText = "First Tier Meals: " + U7;
+        
+        let Q4To7 = "";
+        food4To7.forEach(food => {
+        Q4To7 += `Type: ${food.food}\n`;
+        });
+        console.log('Q4To7: '+ Q4To7)
+        
+        document.getElementById("displayExer2").innerText = "Second Tier Meals: " + Q4To7;
+        
+        let U4 = "";
+        foodLessThan4.forEach(food => {
+        U4 += `Type: ${food.food}\n`;
+        });
+        console.log('U4: '+ U4)
+        
+        document.getElementById("displayExer3").innerText = "Third Tier Meals: " +  U4;
+        
+        })}}
+</script>
+</head>
+
+<body>
+    <br>
+    <center><h1>Food Log</h1>
+    
+    <h3>Log your food to notice a trend.</h3>
+    <a>
+    <form>
+        <label for="name">Enter Name Correctly:</label><br>
+        <input class= "help-input" type="text" id="name" name="name"><br>
+        <label for="food">Food you ate:</label><br>
+        <input class= "help-input" type="food" id="food" name="food"><br>
+        <label for="after">How did you feel an hour after? (0-5):</label><br>
+        <input class= "help-input" type="number" id="after" name="after"><br>
+        <p>1😡2😞3😐4🙂5😇</p>
+        <button onclick = "addInfo()">Submit</button>
+    </form>
+    </a>
+
+    <br>
+
+    <button onclick = "fetchData()">Recall Food Eaten</button>
+    <p id = "displayExer1">Make sure your name is written in the "Name" box above.</p>
+    <p id = "displayExer2"></p>
+    <p id = "displayExer3"></p>
+
+    </center>
+    <a href = "/main">
+    <button>Return To Home</button>
+    </a>
+
+</body>
+
+</html>
