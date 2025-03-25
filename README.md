@@ -1,5 +1,6 @@
 # MENtal-Health
 
+clone the git repository
 Open three command prompts
 In the first type "pip install flask flask_pymongo" press enter and  then "python app.py"
 In the second type "python foodapp.py"
